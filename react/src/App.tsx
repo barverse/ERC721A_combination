@@ -6,6 +6,9 @@ import { useMoralis, useWeb3Contract } from "react-moralis";
 
 import Func from "./components/Func";
 
+import { ethers } from "ethers";
+import { sign } from "web3-token";
+
 function App() {
   const appCtx = React.useContext(AppContext);
   const {
@@ -22,6 +25,20 @@ function App() {
 
   const [inputFuncs, setInputFuncs] = React.useState<any[]>([]);
   const [outputFuncs, setOutputFuncs] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    // @ts-ignore
+    if (window.ethereum) {
+      // @ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      sign(async (msg) => await signer.signMessage(msg), "20h").then((token) => {
+        console.log(token);
+      });
+    }
+    // @ts-ignore
+  }, [window.ethereum]);
 
   React.useEffect(() => {
     if (appCtx.contractABI.length > 0) {

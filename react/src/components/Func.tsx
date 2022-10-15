@@ -41,13 +41,13 @@ const Func = ({ abi }: { abi: func }) => {
     initialValues: {},
     onSubmit: async (values: any) => {
       // for biconomy relay setting
-      if (import.meta.env.VITE_BICONOMY_API_KEY && values._newData) {
-        await appCtx.biconomyContract.methods
-          .setStorage(values._newData)
-          .send({ from: user?.get("ethAddress") });
+      // if (import.meta.env.VITE_BICONOMY_API_KEY && values._newData) {
+      //   await appCtx.biconomyContract.methods
+      //     .setStorage(values._newData)
+      //     .send({ from: user?.get("ethAddress") });
 
-        return;
-      }
+      //   return;
+      // }
       // You can comment above if you don't want to use relay
 
       const options = {
