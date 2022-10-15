@@ -18,11 +18,12 @@ async function main() {
   const erc = await ERC.deploy(
     "Berserker",
     "bsk",
-    5000,
+    1000,
     "https://baseTokenURI/",
-    "25000000000000000",
+    "1000000000000000000",
     "https://blindTokenURI/",
     5,
+    100,
   );
   await erc.deployed();
 

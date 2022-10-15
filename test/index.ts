@@ -503,6 +503,20 @@ describe("ERC721A", async function () {
       )
     ).wait();
 
+    const sharingMember: any = [];
+    const sharingCount = (await erc.getSharingMemberCount()).toNumber();
+    for (let i = 0; i < sharingCount; i++) {
+      const sharing = await erc.getSharingMember(i);
+      sharingMember.push(sharing);
+    }
+    console.table(sharingMember);
+    expect(sharingMember[0][0]).to.equal(sharing1.address);
+    expect(sharingMember[0][1]).to.equal(share1);
+    expect(sharingMember[1][0]).to.equal(sharing2.address);
+    expect(sharingMember[1][1]).to.equal(share2);
+    expect(sharingMember[2][0]).to.equal(sharing3.address);
+    expect(sharingMember[2][1]).to.equal(share3);
+
     // add manager
     await (await erc.addMember(member.address)).wait();
 

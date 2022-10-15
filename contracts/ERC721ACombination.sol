@@ -44,7 +44,9 @@ contract ERC721ACombination is
     baseURI = _baseURI;
     blindTokenURI = _blindTokenURI;
     maxPerAddressMint = _maxPerAddressMint;
-    _safeMint(msg.sender, _teamMint);
+    if (_teamMint > 0) {
+      _safeMint(msg.sender, _teamMint);
+    }
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     _pause();
     setNftPrice(_nftPrice);
@@ -85,7 +87,7 @@ contract ERC721ACombination is
   function tokenURI(uint256 _tokenId) public view virtual override returns (string memory) {
     require(_exists(_tokenId), "URI query for nonexistent token");
 
-    if (_blindBoxOpened) {
+    if (blindBoxOpened) {
       return
         bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, _tokenId.toString())) : "";
     } else {
@@ -107,7 +109,7 @@ contract ERC721ACombination is
   ///////////  end of pause  ///////////
 
   ///////////  start of blind box  ///////////
-  bool private _blindBoxOpened = false;
+  bool public blindBoxOpened = false;
   string public blindTokenURI = "";
 
   function setBlindTokenURI(string memory _blindTokenURI) public onlyMember {
@@ -115,7 +117,7 @@ contract ERC721ACombination is
   }
 
   function setBlindBoxOpened(bool _status) external onlyMember {
-    _blindBoxOpened = _status;
+    blindBoxOpened = _status;
   }
 
   ///////////  blind box end  ///////////
