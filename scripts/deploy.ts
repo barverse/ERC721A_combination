@@ -28,6 +28,16 @@ async function main() {
   await erc.deployed();
 
   console.log("Greeter deployed to:", erc.address);
+
+  // const ERC = await ethers.getContractFactory("ERC721AProxy");
+  // const erc = await ERC.deploy("Berserker", "bsk");
+  // await erc.deployed();
+
+  // console.log("Greeter deployed to:", erc.address);
+
+  // const Proxy = await ethers.getContractFactory("ProxyFactory");
+  // const proxy = await Proxy.deploy("0x9B06E7B1c70A17EF3759F96b0724b3E257d31AAB");
+  // await proxy.deployed();
 }
 
 // We recommend this pattern to be able to use async/await everywhere
