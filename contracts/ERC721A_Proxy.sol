@@ -190,7 +190,9 @@ contract ERC721AProxy is
     override(ERC721A, AccessControlEnumerable)
     returns (bool)
   {
-    return super.supportsInterface(interfaceId);
+    return
+      ERC721A.supportsInterface(interfaceId) ||
+      AccessControlEnumerable.supportsInterface(interfaceId);
   }
 
   /// @dev Restricted to members of the community.
